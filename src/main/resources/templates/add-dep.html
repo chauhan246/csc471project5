@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add New Dependent</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+		<!-- Navbar with Home button and Add Employee/Dependent button -->
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <a class="btn btn-outline-primary btn-md" href="/">Home</a>
+			
+			  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+			    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+			      <li class="nav-item">
+			        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+			      </li>
+			    </ul>
+			    <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
+			      <a class="btn btn-outline-success my-2 my-sm-0" href="/addDep">Add Dependent</a>
+			    </form>
+			    <form class="form-inline my-2 my-lg-0">
+			      <a class="btn btn-outline-success my-2 my-sm-0" href="/addEmp">Add Employee</a>
+			    </form>
+			  </div>
+			</nav>
+		</div>
+		
+		<!-- Add new Employee -->
+		<div class="container">
+			<h3>Add New Dependent</h3>
+			<form action="/addNewDep" name="newDep" method="post">
+			  <div class="form-group row">
+			  		<label for="ssn"  class="col-sm-2 col-form-label">SSN</label>
+			  		<div class="input">
+		 		        <select name="employee.ssn" id="employee.ssn" class="form-control form-control-sm" required>
+		                   <option th:each="emp: ${empList}"><a th:text="${emp.ssn}"></a></option>
+		                </select>
+	                </div>
+			  </div>
+			  <div class="form-group row">
+				  <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+				  <input type="text" name="firstName" th:value="${newDep.firstName}? ${newDep.firstName}" required>
+			  </div>
+			  <div class="form-group row">
+				  <label for="middleInitial" class="col-sm-2 col-form-label">Middle Initial</label>
+				  <input type="text" name="middleInitial" th:value="${newDep.middleInitial}? ${newDep.middleInitial}">
+			  </div>
+			  <div class="form-group row">
+				  <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+				  <input type="text" name="lastName" th:value="${newDep.lastName}? ${newDep.lastName}" required>
+			  </div>
+			  <div class="form-group row">
+			  		<label for="relationship" class="col-sm-2 col-form-label">Relationship With Employee</label>
+			  		<div class="input">
+	                    <select name="relationship" id="relationship" class="form-control form-control-sm" required>
+	                        <option th:value="Spouse">Spouse</option>
+	                        <option th:value="Child">Child</option>
+	                        <option th:value="Sibling">Sibling</option>
+	                        <option th:value="Parent">Parent</option>
+	                        <option th:value="Other">Other</option>
+	                    </select>
+                    </div>
+			  </div>
+			  <button type="submit" class="btn btn-primary">Add</button>
+			</form>
+		 </div>
+    </body>
+</html>
