@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csc471.project5.model.Dependent;
 import com.csc471.project5.model.Employee;
@@ -115,12 +116,13 @@ public class EmpDepController {
 		return "redirect:/home";
 	}
 	
-	@GetMapping("/getAllDep/empSsn={ssn}")
+	@GetMapping("/getAllDeps/empSsn={ssn}")
 	public String getAllDep(@PathVariable String ssn, Model model) {
 		System.out.println("Get All Dependents for Employee SSN: " + ssn);
 		try {
 			List<Dependent> dependents = dependentService.getAllDep(employeeService.getEmployee(ssn));
 			model.addAttribute("allDeps", dependents);
+			model.addAttribute("empSsn", ssn);
 			return "dep-home";
 		} catch (AccountNotFoundException e) {
 			e.printStackTrace();
@@ -132,7 +134,6 @@ public class EmpDepController {
 	@GetMapping("/updateDep/depId={id}")
 	public String updadeDep(@PathVariable int id, Model model) {
 		System.out.println("Update Dependent with Id = " + id);
-		
 		try {
 			Dependent dependent = dependentService.getDep(id);
 			model.addAttribute("dep",dependent);
@@ -145,8 +146,21 @@ public class EmpDepController {
 	
 	@PostMapping("/updateDepDetails")
 	public String updateDepDetails(Dependent dependent) {
-		
-		return "dep-home";
+		System.out.println(dependent.toString());
+		try {
+			dependentService.updateDep(dependent);
+			return "redirect:/getAllDeps/empSsn=" + dependent.getEmployee().getSsn();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/home";
+	}
+	
+	@GetMapping("/deleteDep/depId={id}/empSsn={ssn}")
+	public String deleteDep(@PathVariable int id, @PathVariable String ssn) {
+		System.out.println("Delete dependent with Id = " + id);
+		dependentService.deleteDep(id);
+		return "redirect:/getAllDeps/empSsn=" + ssn;
 	}
 	
 }

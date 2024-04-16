@@ -56,8 +56,8 @@
 						<td th:text="${emp.salary}"></td>
 						<td th:text="${emp.address}"></td>
 						<td>
-							<button th:text="${emp.dependents.size}" type="button" class="btn btn-primary">
-							</button>
+							<a th:href="@{/getAllDeps/empSsn={ssn}(ssn=${emp.ssn})}" th:text="${emp.dependents.size}" class="btn btn-primary">
+							</a>
 						</td>
 						<td>
  							<a th:href="@{/updateEmp/empSsn={ssn}(ssn=${emp.ssn})}" class="btn btn-outline-warning my-2 my-sm-0">Update</a>

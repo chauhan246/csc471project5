@@ -6,6 +6,11 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <style>
+			.required{
+			    color: red;
+			}
+		</style>
     </head>
     <body>
 		<!-- Navbar with Home button and Add Employee/Dependent button -->
@@ -32,37 +37,43 @@
 			</nav>
 		</div>
 		
-		<!-- Add new Favorite Song -->
+		 
+		 <!-- Update Dependent -->
 		<div class="container">
-			<h5>Update Employee Information</h5>
-			<form action="/updateEmpDetails" name="emp" method="post">
+			<h3>Update Dependent</h3>
+			<form action="/updateDepDetails" name="dep" method="post">
 			  <div class="form-group row">
-				    <label for="name"  class="col-sm-2 col-form-label">SSN</label>
-				    <input type="text" name="ssn" th:value="${emp.ssn}" readonly>
+				  <label for="id" class="col-sm-2 col-form-label">ID <span class="required">*</span></label>
+				  <input class="bg-secondary" type="text" name="id" th:value="${dep.id}" readonly>
 			  </div>
 			  <div class="form-group row">
-					  <label for="artist" class="col-sm-2 col-form-label">First Name</label>
-					  <input type="text" name="firstName" th:value="${emp.firstName}? ${emp.firstName}" required>
+				  <label for="employee.ssn" class="col-sm-2 col-form-label">SSN <span class="required">*</span></label>
+				  <input class="bg-secondary" type="text" name="employee.ssn" th:value="${dep.employee.ssn}" readonly>
 			  </div>
 			  <div class="form-group row">
-					  <label for="genres" class="col-sm-2 col-form-label">Middle Initial</label>
-					  <input type="text" name="middleInitial" th:value="${emp.middleInitial}? ${emp.middleInitial}">
+				  <label for="firstName" class="col-sm-2 col-form-label">First Name <span class="required">*</span></label>
+				  <input type="text" name="firstName" pattern="[A-Za-z0-9\.'\-]{1,255}" title="Enter 1-255 characters from (A-Z,a-z,0-9,.,',-)" th:value="${dep.firstName}? ${dep.firstName}" required>
 			  </div>
 			  <div class="form-group row">
-					  <label for="genres" class="col-sm-2 col-form-label">Last Name</label>
-					  <input type="text" name="lastName" th:value="${emp.lastName}? ${emp.lastName}" required>
+				  <label for="middleInitial" class="col-sm-2 col-form-label">Middle Initial</label>
+				  <input type="text" name="middleInitial" pattern="[A-Za-z]{1}" title="Enter only 1 character from (A-Z,a-z)" th:value="${dep.middleInitial}? ${dep.middleInitial}">
 			  </div>
 			  <div class="form-group row">
-					  <label for="genres" class="col-sm-2 col-form-label">DOB</label>
-					  <input type="date" name="dob" th:value="${emp.dob}? ${emp.dob}">
+				  <label for="lastName" class="col-sm-2 col-form-label">Last Name <span class="required">*</span></label>
+				  <input type="text" name="lastName" pattern="[A-Za-z0-9\.'\-]{1,255}" title="Enter 1-255 characters from (A-Z,a-z,0-9,.,',-)" th:value="${dep.lastName}? ${dep.lastName}" required>
 			  </div>
 			  <div class="form-group row">
-					  <label for="genres" class="col-sm-2 col-form-label">Salary</label>
-					  <input type="number" name="salary" th:value="${emp.salary}? ${emp.salary}" required>
-			  </div>
-			  <div class="form-group row">
-					  <label for="genres" class="col-sm-2 col-form-label">Address</label>
-					  <input type="text" name="address" th:value="${emp.address}? ${emp.address}">
+			  		<label for="relationship" class="col-sm-2 col-form-label">Relationship With Employee <span class="required">*</span></label>
+			  		<div class="input">
+	                    <select name="relationship" id="relationship" class="form-control form-control-sm" required>
+	                    	<option th:value="${dep.relationship}" th:text="${dep.relationship}"></option>
+	                        <option th:value="Spouse">Spouse</option>
+	                        <option th:value="Child">Child</option>
+	                        <option th:value="Sibling">Sibling</option>
+	                        <option th:value="Parent">Parent</option>
+	                        <option th:value="Other">Other</option>
+	                    </select>
+                    </div>
 			  </div>
 			  <button type="submit" class="btn btn-primary">Update</button>
 			</form>

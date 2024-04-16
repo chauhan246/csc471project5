@@ -29,5 +29,13 @@ public class DependentService {
 				new AccountNotFoundException("Id: " + id + " not found"));
 		return dependent;
 	}
+	
+	public void updateDep(Dependent dependent) {
+		dependentRepository.save(dependent);
+	}
+	
+	public void deleteDep(int id) {
+		dependentRepository.deleteById(String.valueOf(id));
+	}
 
 }

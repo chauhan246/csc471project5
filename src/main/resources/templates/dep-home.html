@@ -33,29 +33,26 @@
 		</div>
 
         <div class="container">
-            <h1>List of Employees</h1>
+            <h2 th:text="'List of Dependents for SSN = ' + ${empSsn}"></h2>
 			
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>SSN</th>
+						<th>ID</th>
 						<th>Name</th>
-						<th>DOB</th>
-						<th>Salary</th>
-						<th>Address</th>
-						<th>Dependents</th>
+						<th>Relationship</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="dep: ${allDeps}">
-						<td th:text="${dep.employee.ssn}"></td>
+						<td th:text="${dep.id}"></td>
 						<td th:text="${dep.middleInitial} ? ${dep.firstName} + ' ' + ${dep.middleInitial} + ' ' 
 						            + ${dep.lastName} : ${dep.firstName} + ' ' + ${dep.lastName}" ></td>
 						<td th:text="${dep.relationship}"></td>
 						<td>
- 							<a th:href="@{/updateEmp/empSsn={ssn}(ssn=${emp.ssn})}" class="btn btn-outline-warning my-2 my-sm-0">Update</a>
-							<a th:href="@{/deleteEmp/empSsn={ssn}(ssn=${emp.ssn})}" class="btn btn-outline-danger my-2 my-sm-0">Delete</a>
+ 							<a th:href="@{/updateDep/depId={id}(id=${dep.id})}" class="btn btn-outline-warning my-2 my-sm-0">Update</a>
+							<a th:href="@{/deleteDep/depId={id}/empSsn={ssn}(id=${dep.id},ssn=${empSsn})}" class="btn btn-outline-danger my-2 my-sm-0">Delete</a>
 						</td>
 					</tr>
 				</tbody>
