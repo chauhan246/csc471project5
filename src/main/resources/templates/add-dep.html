@@ -40,6 +40,9 @@
 		<!-- Add new Dependent -->
 		<div class="container">
 			<h3>Add New Dependent</h3>
+			<div th:if="${empList.size == 0}" style="width:50%;" class="alert alert-danger" role="alert">
+  				You must have at least one employee before adding a dependent.
+			</div>
 			<form action="/addNewDep" name="newDep" method="post">
 			  <div class="form-group row">
 			  		<label for="ssn"  class="col-sm-2 col-form-label">SSN <span class="required">*</span></label>
